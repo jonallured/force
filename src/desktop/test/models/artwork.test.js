@@ -67,7 +67,7 @@ describe("Artwork", function () {
         this.artwork.downloadableUrl().should.containEql("larger.jpg")
         return this.artwork
           .downloadableUrl({
-            isAdmin() {
+            isAdminOrTeam() {
               return false
             },
           })
@@ -78,7 +78,7 @@ describe("Artwork", function () {
       it('returns the URL to the "original" file', function () {
         return this.artwork
           .downloadableUrl({
-            isAdmin() {
+            isAdminOrTeam() {
               return true
             },
           })
@@ -100,14 +100,14 @@ describe("Artwork", function () {
         this.artwork.isDownloadable().should.be.false()
         this.artwork
           .isDownloadable({
-            isAdmin() {
+            isAdminOrTeam() {
               return false
             },
           })
           .should.be.false()
         return this.artwork
           .isDownloadable({
-            isAdmin() {
+            isAdminOrTeam() {
               return true
             },
           })

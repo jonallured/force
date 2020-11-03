@@ -37,6 +37,17 @@ export function userIsAdmin(user?: User): boolean {
   return isAdmin
 }
 
+export function userIsTeam(user?: User): boolean {
+  const isTeam = Boolean(user && user.type === "Team" ? true : false)
+  return isTeam
+}
+
+export function userIsAdminOrTeam(user?: User): boolean {
+  const isTeam = userIsTeam(user)
+  const isAdmin = userIsAdmin(user)
+  return isTeam || isAdmin
+}
+
 export function userHasAccessToPartner(user: User, partnerId: string): boolean {
   const token = get(user, u => u.accessToken)
   if (!token) {

@@ -1,4 +1,4 @@
-import { userHasLabFeature, userIsAdmin } from "../user"
+import { userHasLabFeature, userIsAdmin, userIsAdminOrTeam } from "../user"
 
 describe("user", () => {
   describe("userHasLabFeature", () => {
@@ -66,6 +66,46 @@ describe("user", () => {
       }
 
       const result = userIsAdmin(user)
+
+      expect(result).toEqual(true)
+    })
+  })
+
+  describe("userIsAdminOrTeam", () => {
+    it("returns undefined if user is undefined", () => {
+      const user: User = undefined
+
+      const result = userIsAdminOrTeam(user)
+
+      expect(result).toEqual(false)
+    })
+
+    it("returns false if user is not of type 'Admin' or 'Team'", () => {
+      const user: User = {
+        type: "Sous-Chef",
+      }
+
+      const result = userIsAdminOrTeam(user)
+
+      expect(result).toEqual(false)
+    })
+
+    it("returns true if user is of type 'Admin'", () => {
+      const user: User = {
+        type: "Admin",
+      }
+
+      const result = userIsAdminOrTeam(user)
+
+      expect(result).toEqual(true)
+    })
+
+    it("returns true if user is of type 'Team'", () => {
+      const user: User = {
+        type: "Team",
+      }
+
+      const result = userIsAdminOrTeam(user)
 
       expect(result).toEqual(true)
     })
