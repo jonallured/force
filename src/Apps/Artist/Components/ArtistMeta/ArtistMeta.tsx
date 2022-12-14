@@ -14,7 +14,10 @@ interface Props {
 export const ArtistMeta: React.FC<Props> = ({ artist }) => {
   const metaContent = artist?.meta?.description
   const alternateNames = artist?.alternate_names || []
-  const showNoIndex = artist?.counts?.artworks === 0 && !artist.blurb
+  const showNoIndex =
+    artist?.counts?.artworks === 0 &&
+    !artist?.blurb &&
+    !artist?.statuses?.auctionLots
 
   return (
     <>
@@ -70,6 +73,9 @@ export const ArtistMetaFragmentContainer = createFragmentContainer(ArtistMeta, {
       }
       counts {
         artworks
+      }
+      statuses {
+        auctionLots
       }
       blurb
       artworks_connection: artworksConnection(

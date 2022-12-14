@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<765220d6fc61129fbc69f62a7a0ecf0d>>
+ * @generated SignedSource<<334fba1268961d7fbba29b100036d3e0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -76,6 +76,9 @@ export type ArtistMeta_artist$data = {
   readonly name: string | null;
   readonly nationality: string | null;
   readonly slug: string;
+  readonly statuses: {
+    readonly auctionLots: boolean | null;
+  } | null;
   readonly " $fragmentSpreads": FragmentRefs<"ArtistMetaCanonicalLink_artist">;
   readonly " $fragmentType": "ArtistMeta_artist";
 };
@@ -276,6 +279,24 @@ return {
     {
       "alias": null,
       "args": null,
+      "concreteType": "ArtistStatuses",
+      "kind": "LinkedField",
+      "name": "statuses",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "auctionLots",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "kind": "ScalarField",
       "name": "blurb",
       "storageKey": null
@@ -456,6 +477,6 @@ return {
 };
 })();
 
-(node as any).hash = "a16a38b3bce624e4b8e514d8fadd4416";
+(node as any).hash = "9b17b7a9acce0948c8ebae84920e5a27";
 
 export default node;

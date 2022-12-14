@@ -220,6 +220,12 @@ describe("AdminMeta", () => {
       expect(getMetaBy({ name: "robots" })).toBeNull()
     })
 
+    it("skips rendering when there are auction results", () => {
+      const artist = { statuses: true }
+      renderWithRelay({ Artist: () => artist })
+      expect(getMetaBy({ name: "robots" })).toBeNull()
+    })
+
     it("renders when there are no artworks and no blurb", () => {
       const artist = { counts: { artworks: 0 }, blurb: null }
       renderWithRelay({ Artist: () => artist })
