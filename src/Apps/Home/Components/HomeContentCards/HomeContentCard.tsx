@@ -1,4 +1,3 @@
-import Braze from "@braze/web-sdk"
 import * as React from "react"
 import {
   Box,
@@ -16,7 +15,7 @@ import { Media } from "Utils/Responsive"
 import { HomeHeroUnitCredit } from "Apps/Home/Components/HomeHeroUnits/HomeHeroUnitCredit"
 
 interface HomeContentCardProps {
-  card: Braze.CaptionedImage
+  card: any
   index: number
   onClick?: () => void
 }
@@ -40,39 +39,34 @@ const HomeContentCardSmall: React.FC<HomeContentCardProps> = ({
   index,
   onClick,
 }) => {
-  const image = card.imageUrl
-    ? cropped(card.imageUrl, {
-        // 3:2
-        width: 500,
-        height: 333,
-      })
-    : null
+  const imageUrl = card.image?.imageURL
+  const image = imageUrl && cropped(imageUrl, { width: 500, height: 333 })
 
   return (
     <RouterLink
-      onClick={onClick}
-      display="block"
-      width="100%"
-      height="100%"
-      to={card.url!}
+      aria-label={`${card.title} - ${card.body}`}
       bg="black5"
+      display="block"
+      height="100%"
+      onClick={onClick}
       textDecoration="none"
-      aria-label={`${card.title} - ${card.description}`}
+      to={card.linkUrl}
+      width="100%"
     >
       <ResponsiveBox
-        aspectWidth={3}
         aspectHeight={2}
-        maxWidth="100%"
+        aspectWidth={3}
         bg="black30"
+        maxWidth="100%"
       >
         {image && (
           <Image
+            alt=""
+            height="100%"
+            lazyLoad={index > 0}
             src={image.src}
             srcSet={image.srcSet}
             width="100%"
-            height="100%"
-            lazyLoad={index > 0}
-            alt=""
           />
         )}
       </ResponsiveBox>
@@ -85,7 +79,7 @@ const HomeContentCardSmall: React.FC<HomeContentCardProps> = ({
         <Spacer y={1} />
 
         <Text variant="xs" color="black60" lineClamp={4}>
-          {card.description}
+          {card.body}
         </Text>
 
         <Spacer y={1} />
@@ -101,34 +95,33 @@ const HomeContentCardLarge: React.FC<HomeContentCardProps> = ({
   index,
   onClick,
 }) => {
-  const image = card.imageUrl
-    ? cropped(card.imageUrl, { width: 1270, height: 500 })
-    : null
+  const imageUrl = card.image?.imageURL
+  const image = imageUrl && cropped(imageUrl, { width: 1270, height: 500 })
 
   return (
     <RouterLink
-      onClick={onClick}
+      aria-label={`${card.title} - ${card.body}`}
       display="block"
+      onClick={onClick}
       textDecoration="none"
-      to={card.url!}
-      aria-label={`${card.title} - ${card.description}`}
+      to={card.linkUrl}
     >
       <GridColumns bg="black5">
         <Column span={6}>
           <Box height={[300, 400, 500]} position="relative" bg="black30">
             {image && (
               <Image
+                alt=""
+                height="100%"
+                lazyLoad={index > 0}
                 src={image.src}
                 srcSet={image.srcSet}
-                width="100%"
-                height="100%"
                 style={{ objectFit: "cover" }}
-                lazyLoad={index > 0}
-                alt=""
+                width="100%"
               />
             )}
 
-            {card.extras?.credit && (
+            {card.credit && (
               <Box
                 position="absolute"
                 bottom={0}
@@ -139,7 +132,7 @@ const HomeContentCardLarge: React.FC<HomeContentCardProps> = ({
                 pt={6}
                 background="linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 100%);"
               >
-                <HomeHeroUnitCredit>{card.extras.credit}</HomeHeroUnitCredit>
+                <HomeHeroUnitCredit>{card.credit}</HomeHeroUnitCredit>
               </Box>
             )}
           </Box>
@@ -148,16 +141,16 @@ const HomeContentCardLarge: React.FC<HomeContentCardProps> = ({
         <Column span={6}>
           <GridColumns height="100%">
             <Column
-              start={3}
-              span={8}
               display="flex"
-              justifyContent="center"
               flexDirection="column"
+              justifyContent="center"
               py={4}
+              span={8}
+              start={3}
             >
-              {card.extras?.label && (
+              {card.label && (
                 <>
-                  <Text variant="xs">{card.extras.label}</Text>
+                  <Text variant="xs">{card.label}</Text>
 
                   <Spacer y={1} />
                 </>
@@ -165,8 +158,8 @@ const HomeContentCardLarge: React.FC<HomeContentCardProps> = ({
 
               <Text
                 as={index === 0 ? "h1" : "h2"}
-                variant={["lg-display", "xl", "xl"]}
                 lineClamp={3}
+                variant={["lg-display", "xl", "xl"]}
               >
                 {card.title}
               </Text>
@@ -174,11 +167,11 @@ const HomeContentCardLarge: React.FC<HomeContentCardProps> = ({
               <Spacer y={2} />
 
               <Text
-                variant={["xs", "sm-display", "lg-display"]}
                 color="black60"
                 lineClamp={4}
+                variant={["xs", "sm-display", "lg-display"]}
               >
-                {card.description}
+                {card.body}
               </Text>
 
               <Spacer y={[2, 2, 4]} />

@@ -7286,6 +7286,39 @@ type CreateGeminiEntryForAssetPayload {
   clientMutationId: String
 }
 
+type createHeroUnitFailure {
+  mutationError: GravityMutationError
+}
+
+input CreateHeroUnitMutationInput {
+  body: String!
+  clientMutationId: String
+  credit: String
+  endAt: String
+  imageUrl: String
+  label: String
+  linkText: String!
+  linkUrl: String!
+  position: Int
+  startAt: String
+  title: String!
+}
+
+type CreateHeroUnitMutationPayload {
+  clientMutationId: String
+
+  # On success: the hero unit created.
+  heroUnitOrError: createHeroUnitResponseOrError
+}
+
+union createHeroUnitResponseOrError =
+    createHeroUnitFailure
+  | createHeroUnitSuccess
+
+type createHeroUnitSuccess {
+  heroUnit: HeroUnit
+}
+
 input CreateIdentityVerificationOverrideMutationInput {
   clientMutationId: String
 
@@ -7986,6 +8019,30 @@ union DeleteFeatureResponseOrError = DeleteFeatureFailure | DeleteFeatureSuccess
 
 type DeleteFeatureSuccess {
   feature: Feature
+}
+
+type deleteHeroUnitFailure {
+  mutationError: GravityMutationError
+}
+
+input deleteHeroUnitMutationInput {
+  clientMutationId: String
+  id: String!
+}
+
+type deleteHeroUnitMutationPayload {
+  clientMutationId: String
+
+  # On success: the deleted hero unit.
+  heroUnitOrError: deleteHeroUnitResponseOrError
+}
+
+union deleteHeroUnitResponseOrError =
+    deleteHeroUnitFailure
+  | deleteHeroUnitSuccess
+
+type deleteHeroUnitSuccess {
+  heroUnit: HeroUnit
 }
 
 type deleteOrderedSetFailure {
@@ -9819,6 +9876,66 @@ type GravityMutationError {
   message: String!
   statusCode: Int
   type: String
+}
+
+# A Hero Unit
+type HeroUnit {
+  # Main Hero Unit content.
+  body: String!
+  createdAt: String!
+
+  # Optional image credit line.
+  credit: String
+
+  # Timestamp for when the Hero Unit should no longer be running.
+  endAt: String
+
+  # A globally unique ID.
+  id: ID!
+
+  # The main image for the Hero Unit.
+  image: Image
+
+  # A type-specific ID likely used as a database ID.
+  internalID: ID!
+
+  # Optional label for above the title.
+  label: String
+
+  # Text for the CTA of the Hero Unit.
+  linkText: String!
+
+  # URL for the CTA of the Hero Unit.
+  linkUrl: String!
+
+  # Dictates the order of the Hero Units.
+  position: Int
+
+  # Timestamp for when the Hero Unit should begin running.
+  startAt: String
+
+  # The main headline for the Hero Unit.
+  title: String!
+}
+
+# A connection to a list of items.
+type HeroUnitConnection {
+  # A list of edges.
+  edges: [HeroUnitEdge]
+  pageCursors: PageCursors!
+
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+# An edge in a connection.
+type HeroUnitEdge {
+  # A cursor for use in pagination
+  cursor: String!
+
+  # The item at the end of the edge
+  node: HeroUnit
 }
 
 type HighestBid {
@@ -11959,6 +12076,11 @@ type Mutation {
     input: CreateGeminiEntryForAssetInput!
   ): CreateGeminiEntryForAssetPayload
 
+  # Creates a hero unit.
+  createHeroUnitMutation(
+    input: CreateHeroUnitMutationInput!
+  ): CreateHeroUnitMutationPayload
+
   # Create an identity verification override
   createIdentityVerificationOverride(
     input: CreateIdentityVerificationOverrideMutationInput!
@@ -12033,6 +12155,11 @@ type Mutation {
   deleteFeaturedLink(
     input: DeleteFeaturedLinkMutationInput!
   ): DeleteFeaturedLinkMutationPayload
+
+  # deletes a hero unit.
+  deleteHeroUnitMutation(
+    input: deleteHeroUnitMutationInput!
+  ): deleteHeroUnitMutationPayload
 
   # Delete User Artsy Account
   deleteMyAccountMutation(input: DeleteAccountInput!): DeleteAccountPayload
@@ -12259,6 +12386,11 @@ type Mutation {
   updateFeaturedLink(
     input: UpdateFeaturedLinkMutationInput!
   ): UpdateFeaturedLinkMutationPayload
+
+  # updates a hero unit.
+  updateHeroUnitMutation(
+    input: UpdateHeroUnitMutationInput!
+  ): UpdateHeroUnitMutationPayload
 
   # Update a message.
   updateMessage(
@@ -14612,6 +14744,21 @@ type Query {
     #
     slugs: [String]
   ): [Gene]
+
+  # A Hero Unit.
+  heroUnit(
+    # The ID of the Hero Unit
+    id: String!
+  ): HeroUnit
+  heroUnitsConnection(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    # If present, will search by term
+    term: String
+  ): HeroUnitConnection
   highlights: Highlights
 
   # Home screen content
@@ -17463,6 +17610,40 @@ type UpdateFeatureSuccess {
   feature: Feature
 }
 
+type updateHeroUnitFailure {
+  mutationError: GravityMutationError
+}
+
+input UpdateHeroUnitMutationInput {
+  body: String!
+  clientMutationId: String
+  credit: String
+  endAt: String
+  id: String!
+  imageUrl: String
+  label: String
+  linkText: String!
+  linkUrl: String!
+  position: Int
+  startAt: String
+  title: String!
+}
+
+type UpdateHeroUnitMutationPayload {
+  clientMutationId: String
+
+  # On success: the hero unit updated.
+  heroUnitOrError: updateHeroUnitResponseOrError
+}
+
+union updateHeroUnitResponseOrError =
+    updateHeroUnitFailure
+  | updateHeroUnitSuccess
+
+type updateHeroUnitSuccess {
+  heroUnit: HeroUnit
+}
+
 type UpdateMessageFailure {
   mutationError: GravityMutationError
 }
@@ -18937,6 +19118,21 @@ type Viewer {
     #
     slugs: [String]
   ): [Gene]
+
+  # A Hero Unit.
+  heroUnit(
+    # The ID of the Hero Unit
+    id: String!
+  ): HeroUnit
+  heroUnitsConnection(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    # If present, will search by term
+    term: String
+  ): HeroUnitConnection
   highlights: Highlights
 
   # Home screen content

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b48dffdcb98c3e2be808f3778abf36d1>>
+ * @generated SignedSource<<43b358edde15b8865a2c1d6f70910f27>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,9 @@ export type homeRoutes_HomeQuery$data = {
   readonly featuredEventsOrderedSet: {
     readonly " $fragmentSpreads": FragmentRefs<"HomeApp_featuredEventsOrderedSet">;
   } | null;
+  readonly heroUnitsConnection: {
+    readonly " $fragmentSpreads": FragmentRefs<"HomeApp_heroUnitsConnection">;
+  } | null;
 };
 export type homeRoutes_HomeQuery = {
   response: homeRoutes_HomeQuery$data;
@@ -29,7 +32,21 @@ var v0 = [
     "value": "529939e2275b245e290004a0"
   }
 ],
-v1 = {
+v1 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 10
+  }
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v3 = {
   "kind": "Literal",
   "name": "version",
   "value": [
@@ -38,29 +55,29 @@ v1 = {
     "large_rectangle"
   ]
 },
-v2 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "src",
   "storageKey": null
 },
-v3 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "srcSet",
   "storageKey": null
 },
-v4 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v5 = [
-  (v4/*: any*/)
+v7 = [
+  (v6/*: any*/)
 ];
 return {
   "fragment": {
@@ -84,6 +101,22 @@ return {
           }
         ],
         "storageKey": "orderedSet(id:\"529939e2275b245e290004a0\")"
+      },
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "HeroUnitConnection",
+        "kind": "LinkedField",
+        "name": "heroUnitsConnection",
+        "plural": false,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "HomeApp_heroUnitsConnection"
+          }
+        ],
+        "storageKey": "heroUnitsConnection(first:10)"
       }
     ],
     "type": "Query",
@@ -128,13 +161,7 @@ return {
                     "name": "internalID",
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "title",
-                    "storageKey": null
-                  },
+                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -165,7 +192,7 @@ return {
                             "name": "height",
                             "value": 63
                           },
-                          (v1/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "width",
@@ -177,8 +204,8 @@ return {
                         "name": "cropped",
                         "plural": false,
                         "selections": [
-                          (v2/*: any*/),
-                          (v3/*: any*/),
+                          (v4/*: any*/),
+                          (v5/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -204,7 +231,7 @@ return {
                             "name": "height",
                             "value": 297
                           },
-                          (v1/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "width",
@@ -216,51 +243,139 @@ return {
                         "name": "cropped",
                         "plural": false,
                         "selections": [
-                          (v2/*: any*/),
-                          (v3/*: any*/)
+                          (v4/*: any*/),
+                          (v5/*: any*/)
                         ],
                         "storageKey": "cropped(height:297,version:[\"main\",\"wide\",\"large_rectangle\"],width:445)"
                       }
                     ],
                     "storageKey": null
                   },
-                  (v4/*: any*/)
+                  (v6/*: any*/)
                 ],
                 "type": "FeaturedLink",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v5/*: any*/),
+                "selections": (v7/*: any*/),
                 "type": "Node",
                 "abstractKey": "__isNode"
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v5/*: any*/),
+                "selections": (v7/*: any*/),
                 "type": "Profile",
                 "abstractKey": null
               }
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v6/*: any*/)
         ],
         "storageKey": "orderedSet(id:\"529939e2275b245e290004a0\")"
+      },
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "HeroUnitConnection",
+        "kind": "LinkedField",
+        "name": "heroUnitsConnection",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "HeroUnitEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "HeroUnit",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "body",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "credit",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Image",
+                    "kind": "LinkedField",
+                    "name": "image",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "imageURL",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "label",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "linkText",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "linkUrl",
+                    "storageKey": null
+                  },
+                  (v2/*: any*/),
+                  (v6/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": "heroUnitsConnection(first:10)"
       }
     ]
   },
   "params": {
-    "cacheID": "e449ea0c795d2ed6121f6c97a9a21395",
+    "cacheID": "fc1407c77aed679cb13a989ed04a10cd",
     "id": null,
     "metadata": {},
     "name": "homeRoutes_HomeQuery",
     "operationKind": "query",
-    "text": "query homeRoutes_HomeQuery {\n  featuredEventsOrderedSet: orderedSet(id: \"529939e2275b245e290004a0\") {\n    ...HomeApp_featuredEventsOrderedSet\n    id\n  }\n}\n\nfragment HomeApp_featuredEventsOrderedSet on OrderedSet {\n  ...HomeFeaturedEventsRail_orderedSet\n}\n\nfragment HomeFeaturedEventsRail_orderedSet on OrderedSet {\n  items {\n    __typename\n    ... on FeaturedLink {\n      internalID\n      title\n      subtitle\n      href\n      image {\n        small: cropped(width: 95, height: 63, version: [\"main\", \"wide\", \"large_rectangle\"]) {\n          src\n          srcSet\n          width\n          height\n        }\n        large: cropped(width: 445, height: 297, version: [\"main\", \"wide\", \"large_rectangle\"]) {\n          src\n          srcSet\n        }\n      }\n      id\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on Profile {\n      id\n    }\n  }\n}\n"
+    "text": "query homeRoutes_HomeQuery {\n  featuredEventsOrderedSet: orderedSet(id: \"529939e2275b245e290004a0\") {\n    ...HomeApp_featuredEventsOrderedSet\n    id\n  }\n  heroUnitsConnection(first: 10) {\n    ...HomeApp_heroUnitsConnection\n  }\n}\n\nfragment HomeApp_featuredEventsOrderedSet on OrderedSet {\n  ...HomeFeaturedEventsRail_orderedSet\n}\n\nfragment HomeApp_heroUnitsConnection on HeroUnitConnection {\n  ...HomeContentCards_heroUnits\n}\n\nfragment HomeContentCards_heroUnits on HeroUnitConnection {\n  edges {\n    node {\n      body\n      credit\n      image {\n        imageURL\n      }\n      label\n      linkText\n      linkUrl\n      title\n      id\n    }\n  }\n}\n\nfragment HomeFeaturedEventsRail_orderedSet on OrderedSet {\n  items {\n    __typename\n    ... on FeaturedLink {\n      internalID\n      title\n      subtitle\n      href\n      image {\n        small: cropped(width: 95, height: 63, version: [\"main\", \"wide\", \"large_rectangle\"]) {\n          src\n          srcSet\n          width\n          height\n        }\n        large: cropped(width: 445, height: 297, version: [\"main\", \"wide\", \"large_rectangle\"]) {\n          src\n          srcSet\n        }\n      }\n      id\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on Profile {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2ab24d1aa89562327c8c61fed485bfc5";
+(node as any).hash = "ccf51fbb1b53acfe9a9a1539d0f91e40";
 
 export default node;
