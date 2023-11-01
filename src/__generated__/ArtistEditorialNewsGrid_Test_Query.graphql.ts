@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4fd89e4449151ca6b83075fbd556cb02>>
+ * @generated SignedSource<<572271c47ccd3c90227f2e2f8fcaee22>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -179,7 +179,7 @@ return {
               {
                 "kind": "Literal",
                 "name": "inEditorialFeed",
-                "value": true
+                "value": false
               },
               {
                 "kind": "Literal",
@@ -313,7 +313,7 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": "articlesConnection(first:6,inEditorialFeed:true,sort:\"PUBLISHED_AT_DESC\")"
+            "storageKey": "articlesConnection(first:6,inEditorialFeed:false,sort:\"PUBLISHED_AT_DESC\")"
           },
           (v5/*: any*/)
         ],
@@ -322,7 +322,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "91c114556b821d788c27a9ef57f83c3a",
+    "cacheID": "3f57cbb284c6ef3f2b9e70953bf6ec94",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -384,7 +384,7 @@ return {
     },
     "name": "ArtistEditorialNewsGrid_Test_Query",
     "operationKind": "query",
-    "text": "query ArtistEditorialNewsGrid_Test_Query {\n  artist(id: \"test-artist\") {\n    ...ArtistEditorialNewsGrid_artist\n    id\n  }\n}\n\nfragment ArtistEditorialNewsGrid_artist on Artist {\n  internalID\n  name\n  slug\n  href\n  articlesConnection(first: 6, sort: PUBLISHED_AT_DESC, inEditorialFeed: true) {\n    edges {\n      node {\n        ...CellArticle_article\n        internalID\n        href\n        byline\n        slug\n        title\n        publishedAt(format: \"MMM D, YYYY\")\n        vertical\n        thumbnailTitle\n        thumbnailImage {\n          large: cropped(width: 670, height: 720) {\n            width\n            height\n            src\n            srcSet\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment CellArticle_article on Article {\n  vertical\n  title\n  thumbnailTitle\n  byline\n  href\n  publishedAt(format: \"MMM D, YYYY\")\n  thumbnailImage {\n    cropped(width: 445, height: 334) {\n      width\n      height\n      src\n      srcSet\n    }\n  }\n}\n"
+    "text": "query ArtistEditorialNewsGrid_Test_Query {\n  artist(id: \"test-artist\") {\n    ...ArtistEditorialNewsGrid_artist\n    id\n  }\n}\n\nfragment ArtistEditorialNewsGrid_artist on Artist {\n  internalID\n  name\n  slug\n  href\n  articlesConnection(first: 6, sort: PUBLISHED_AT_DESC, inEditorialFeed: false) {\n    edges {\n      node {\n        ...CellArticle_article\n        internalID\n        href\n        byline\n        slug\n        title\n        publishedAt(format: \"MMM D, YYYY\")\n        vertical\n        thumbnailTitle\n        thumbnailImage {\n          large: cropped(width: 670, height: 720) {\n            width\n            height\n            src\n            srcSet\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment CellArticle_article on Article {\n  vertical\n  title\n  thumbnailTitle\n  byline\n  href\n  publishedAt(format: \"MMM D, YYYY\")\n  thumbnailImage {\n    cropped(width: 445, height: 334) {\n      width\n      height\n      src\n      srcSet\n    }\n  }\n}\n"
   }
 };
 })();

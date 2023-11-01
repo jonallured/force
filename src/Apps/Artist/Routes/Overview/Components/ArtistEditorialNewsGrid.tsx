@@ -169,7 +169,7 @@ export const ArtistEditorialNewsGridFragmentContainer = createFragmentContainer(
         articlesConnection(
           first: 6
           sort: PUBLISHED_AT_DESC
-          inEditorialFeed: true
+          inEditorialFeed: false
         ) {
           edges {
             node {
